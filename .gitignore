@@ -21,6 +21,9 @@ dist\
 \dist\
 
 *.class
+.classpath
+*.classpath
+classpath
 
 #OS related
 .DS_STORE
