@@ -23,6 +23,8 @@ public class PIDThread implements Runnable {
 	//thread refresh rate - recommended 5ms (200hz)
 	private long dt;
 	private double previous;
+	private double current;
+	private long dtMeasured;
 	
 	//tolerance specifies the "close enough factor" - when the error is within +- this tolerance, error is considered 0
 	private double tolerance;
@@ -50,9 +52,10 @@ public class PIDThread implements Runnable {
 	 * @param kI - the integral parameter
 	 * @param kD - the derivative parameter
 	 * @param tolerance - error considered 0 if error within +- this value
+	 * @param dt - thread refresh rate (5ms recommended)
 	 * @param marker - VERY IMPORTANT - each new PID thread must have its own PID marker (0 through 3 reserved for PID Drive)
 	 */
-	public PIDThread(double kP, double kI, double kD, double tolerance, int marker) {
+	public PIDThread(double kP, double kI, double kD, double tolerance, long dt, int marker) {
 		this.kP = kP;
 		this.kI = kI;
 		this.kD = kP;
@@ -62,9 +65,12 @@ public class PIDThread implements Runnable {
 		this.PIDinput = null;
 		this.PIDOutput =  null;
 		this.PIDSetpoint = null;
+		this.dt = dt;
 		this.marker = marker;
 		enabled = true;
-		previous = Timer.getFPGATimestamp() * Math.pow(10, -3);
+		previous = (long) Timer.getFPGATimestamp() * Math.pow(10, -3);
+		current = 0;
+		dtMeasured = 0;
 	}
 	
 	/**
@@ -76,8 +82,11 @@ public class PIDThread implements Runnable {
 			//skip PID if the thread is disabled
 			if(enabled){
 				
-			dt = (long) (Timer.getFPGATimestamp() * Math.pow(10, -3) - previous);
-				
+				current = (long) Timer.getFPGATimestamp() * Math.pow(10, -3);
+				dtMeasured = (long) (current - previous);
+				if(dtMeasured == 0){
+					dtMeasured = 5;
+				}
 				//Core PID Code follows: 
 				//setpoint get the setpoint from the PIDSetpoint passed in (use this thread's marker)
 				//currentMeasurement gets the current reading from the PIDinput (use this thread's marker)
@@ -86,12 +95,13 @@ public class PIDThread implements Runnable {
 				//PID Calculation (includes tolerance adjustment)
 				double error = (setpoint) - (currentMeasurement);
 				error = toleranceAdjustment(error);
-				integral = integral + (error * dt);
-				double derivative = (error - previousError) / dt;
+				integral = integral + (error * dtMeasured);
+				double derivative = (error - previousError) / dtMeasured;
 				output = (kP * error) + (kI * integral) + (kD * derivative);
 				previousError = error;
 				//set the PIDoutput to the generated output (again, use the specific marker to prevent cross-thread data transmission, ex. left front encoder reading used in right front PID)
 				PIDOutput.setPIDOutput(output, marker);
+				previous = current;
 			}
 			//if PID disabled, just set output to 0 and 0 integral.
 			//IMPORTANT - if switching to manual control, implement a "disregard all data" catch in the setPIDOutput() method of your PIDOutput object to prevent 0 movement from actuator. 
@@ -105,7 +115,6 @@ public class PIDThread implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("PIDThread #" + marker + "interupted");
 			}
-			previous = Timer.getFPGATimestamp() * Math.pow(10, -3);
 		}
 
 	}
