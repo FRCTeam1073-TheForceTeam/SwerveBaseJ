@@ -64,7 +64,7 @@ public class PIDThread implements Runnable {
 		this.PIDSetpoint = null;
 		this.marker = marker;
 		enabled = true;
-		previous = Math.pow(Timer.getFPGATimestamp(), -3);
+		previous = Timer.getFPGATimestamp() * Math.pow(10, -3);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ public class PIDThread implements Runnable {
 			//skip PID if the thread is disabled
 			if(enabled){
 				
-			dt = (long) (Math.pow(Timer.getFPGATimestamp(), -3) - previous);
+			dt = (long) (Timer.getFPGATimestamp() * Math.pow(10, -3) - previous);
 				
 				//Core PID Code follows: 
 				//setpoint get the setpoint from the PIDSetpoint passed in (use this thread's marker)
@@ -105,7 +105,7 @@ public class PIDThread implements Runnable {
 			} catch (InterruptedException e) {
 				System.out.println("PIDThread #" + marker + "interupted");
 			}
-			previous = Math.pow(Timer.getFPGATimestamp(), -3);
+			previous = Timer.getFPGATimestamp() * Math.pow(10, -3);
 		}
 
 	}
