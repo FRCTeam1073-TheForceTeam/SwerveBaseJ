@@ -30,7 +30,7 @@ public class RobotMap {
     public static SpeedController driveTrainfrontLeftDirMotor;
     public static SpeedController driveTrainfrontLeftSpeedMotor;
     public static SpeedController driveTrainfrontRightDirMotor;
-    public static SpeedController driveTrainfrontRigthSpeedMotor;
+    public static SpeedController driveTrainfrontRightSpeedMotor;
     public static SpeedController driveTrainrearLeftDirMotor;
     public static SpeedController driveTrainrearLeftSpeedMotor;
     public static SpeedController driveTrainrearRightDirMotor;
@@ -53,8 +53,8 @@ public class RobotMap {
         driveTrainfrontRightDirMotor = new VictorSP(2);
         LiveWindow.addActuator("DriveTrain", "frontRightDirMotor", (VictorSP) driveTrainfrontRightDirMotor);
         
-        driveTrainfrontRigthSpeedMotor = new VictorSP(3);
-        LiveWindow.addActuator("DriveTrain", "frontRigthSpeedMotor", (VictorSP) driveTrainfrontRigthSpeedMotor);
+        driveTrainfrontRightSpeedMotor = new VictorSP(3);
+        LiveWindow.addActuator("DriveTrain", "frontRightSpeedMotor", (VictorSP) driveTrainfrontRightSpeedMotor);
         
         driveTrainrearLeftDirMotor = new VictorSP(4);
         LiveWindow.addActuator("DriveTrain", "rearLeftDirMotor", (VictorSP) driveTrainrearLeftDirMotor);

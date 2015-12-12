@@ -68,7 +68,7 @@ Children:
           validators: *id003
           value: '3'
       Base: Speed Controller
-      Name: frontRigthSpeedMotor
+      Name: frontRightSpeedMotor
     - Children: []
       Properties:
         Type: !!robotbuilder.data.properties.ChoicesProperty
@@ -135,7 +135,7 @@ Children:
       Name: rearRightSpeedMotor
     Properties:
       Default Command: !!robotbuilder.data.properties.TypeSelectionProperty {default: None,
-        name: Default Command, type: Command, validators: null, value: Drive}
+        name: Default Command, type: Command, validators: null, value: None}
     Base: Subsystem
     Name: DriveTrain
   - Children:
