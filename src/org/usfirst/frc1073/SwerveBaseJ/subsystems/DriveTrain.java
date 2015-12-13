@@ -11,7 +11,6 @@
 
 package org.usfirst.frc1073.SwerveBaseJ.subsystems;
 
-import org.usfirst.frc1073.SubsystemPID.commands.Drive;
 import org.usfirst.frc1073.SwerveBaseJ.RobotMap;
 import org.usfirst.frc1073.SwerveBaseJ.commands.*;
 
@@ -48,6 +47,7 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
     //Manual Motor Control
     public void setFrontRightSpeed(double speed){
     	frontRightSpeedMotor.set(speed);
@@ -67,6 +67,7 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 	public double getPIDSource(int marker) {
 		return 0;
 	}
+    
 	@Override
 	public void setPIDOutput(double output, int marker) {
 		if (isPID) {
@@ -89,12 +90,15 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 			}
 		}
 	}
+	
 	public Drive getDriveCommand(){
 		return drive;
 	}
+	
 	public void enablePIDDrivetrainParameter(){
 		isPID = true;
 	}
+	
 	public void disablePIDDrivetrainParameter(){
 		isPID = false;
 	}
