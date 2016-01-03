@@ -72,21 +72,21 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 	public void setPIDOutput(double output, int marker) {
 		if (isPID) {
 			if (marker == 0) {
-				frontRightSpeedMotor.set(output);
+				frontLeftDirMotor.set(output);
 			} else if (marker == 1) {
 				frontLeftSpeedMotor.set(output);
 			} else if (marker == 2) {
-				rearLeftSpeedMotor.set(output);
+				frontRightDirMotor.set(output);
 			} else if (marker == 3) {
-				rearRightSpeedMotor.set(output);
+				frontRightSpeedMotor.set(output);
 			} else if (marker == 4) {
-				frontLeftDirMotor.set(output);
-			} else if (marker == 5) {
-				frontLeftDirMotor.set(output);
-			} else if (marker == 6) {
 				rearLeftDirMotor.set(output);
-			} else if (marker == 7) {
+			} else if (marker == 5) {
+				rearLeftSpeedMotor.set(output);
+			} else if (marker == 6) {
 				rearRightDirMotor.set(output);
+			} else if (marker == 7) {
+				rearRightSpeedMotor.set(output);
 			}
 		}
 	}

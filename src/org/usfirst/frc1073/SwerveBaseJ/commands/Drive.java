@@ -29,7 +29,9 @@ public class  Drive extends Command implements PIDCommand {
     public final double W = 30;
     //hypotenuse
     public final double R = Math.sqrt(Math.pow(L, 2) + Math.pow(W, 2));
-    
+    //SWERVE MODULE LIMITS (DO NOT CHANGE):
+    private final int F_MIN_LIMIT = -20;
+    private final int B_MAX_LIMIT = 25;
 	public Drive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -80,6 +82,24 @@ public class  Drive extends Command implements PIDCommand {
 		double frontLeftWA = Math.atan2(B, D) * (-180/Math.PI);
 		double backLeftWA = Math.atan2(A, D) * (-180/Math.PI);
 		double backRightWA = Math.atan2(A, C) * (-180/Math.PI);
+		
+		//Operational Swerve Module calculations below
+		if(frontRightWA < F_MIN_LIMIT){
+			frontRightWA += 180;
+			frontRightWS *= -1;
+		}
+		if(frontLeftWA < F_MIN_LIMIT){
+			frontLeftWA += 180;
+			frontLeftWS *= -1;
+		}
+		if(backLeftWA > B_MAX_LIMIT){
+			backLeftWA -= 180;
+			backLeftWS *= -1;
+		}
+		if(backRightWA > B_MAX_LIMIT){
+			backRightWA -= 180;
+			backRightWS *= -1;
+		}
 		
 	}
 
