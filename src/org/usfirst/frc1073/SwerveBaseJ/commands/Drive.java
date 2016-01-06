@@ -30,6 +30,7 @@ public class  Drive extends Command implements PIDCommand {
 	private double setpointFR;
 	private double setpointBL;
 	private double setpointBR;
+	
 	// The units of L and W are not relevant - only the ratio is used in calculations
     //drivetrain Wheelbase
     public final double L = 30;
@@ -130,31 +131,18 @@ public class  Drive extends Command implements PIDCommand {
 		setpointBR = backRightWA/180;
 		
 		//Don't drive the motors unless the modules are almost in position
-		if(errorFL >= 10){
+		if(errorFL >= 10 || errorFR >= 10 || errorBL >= 10 || errorBR >= 10){
 			Robot.driveTrain.setFrontLeftSpeed(0);
-		}
-		else{
-			Robot.driveTrain.setFrontLeftSpeed(frontLeftWS);
-		}
-		if(errorFR >= 10){
 			Robot.driveTrain.setFrontRightSpeed(0);
-		}
-		else{
-			Robot.driveTrain.setFrontRightSpeed(frontRightWS);
-		}
-		if(errorBL >= 10){
 			Robot.driveTrain.setRearLeftSpeed(0);
-		}
-		else{
-			Robot.driveTrain.setRearLeftSpeed(backLeftWS);
-		}
-		if(errorBR >= 10){
 			Robot.driveTrain.setRearRightSpeed(0);
 		}
 		else{
+			Robot.driveTrain.setFrontLeftSpeed(frontLeftWS);
+			Robot.driveTrain.setFrontRightSpeed(frontRightWS);
+			Robot.driveTrain.setRearLeftSpeed(backLeftWS);
 			Robot.driveTrain.setRearRightSpeed(backRightWS);
 		}
-		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
