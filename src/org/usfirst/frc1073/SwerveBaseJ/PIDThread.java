@@ -101,6 +101,7 @@ public class PIDThread implements Runnable {
 				previousError = error;
 				//set the PIDoutput to the generated output (again, use the specific marker to prevent cross-thread data transmission, ex. left front encoder reading used in right front PID)
 				PIDOutput.setPIDOutput(output, marker);
+				PIDSetpoint.updateError(error, marker);
 				previous = current;
 			}
 			//if PID disabled, just set output to 0 and 0 integral.

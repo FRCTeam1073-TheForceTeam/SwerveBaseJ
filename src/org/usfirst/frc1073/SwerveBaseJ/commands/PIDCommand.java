@@ -7,5 +7,5 @@ package org.usfirst.frc1073.SwerveBaseJ.commands;
 public interface PIDCommand {
 	public double getPIDSetpoint(int marker);
 	public boolean isPIDEnabled();
-	
+	public void updateError(double error, int marker);
 }

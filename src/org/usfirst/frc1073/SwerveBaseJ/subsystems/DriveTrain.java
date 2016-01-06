@@ -67,7 +67,7 @@ public class DriveTrain extends Subsystem implements PIDSubsystem {
 	public double getPIDSource(int marker) {
 		return 0;
 	}
-    
+    //IMPORTANT: ADD a - sign in front of the outputs below if negative needed
 	@Override
 	public void setPIDOutput(double output, int marker) {
 		if (isPID) {

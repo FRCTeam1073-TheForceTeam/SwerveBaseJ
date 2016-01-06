@@ -47,7 +47,7 @@ public class EncoderSubsystem extends Subsystem implements PIDSubsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     	isPID = true;
-    	rampingCoeff = 10;
+    	rampingCoeff = 20;
     }
     //get the wheel angles in degrees to keep the modules in the steering range
     public double getFLAngle(){
