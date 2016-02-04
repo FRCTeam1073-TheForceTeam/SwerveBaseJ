@@ -1,29 +1,19 @@
-##################################
-#First Robotics java .gitignore
-#Team 1073
-##################################
+#####################################
+#  Team 1073 Robot '16 Git Ignore   #
+#####################################
 
 #For Robot Builder Temporary Files
 *~
 ~*
 
-#Other Various Files & Operating System 
-bin/
-
+#Other Various Files & Operating System
+*.xml
+sysProps.xml
 build/
-/build/
-\build\
-build\
-
 dist/
-/dist/
-dist\
-\dist\
-
+bin/
 *.class
 .classpath
-*.classpath
-classpath
 
 #OS related
 .DS_STORE
@@ -31,8 +21,3 @@ classpath
 Desktop.ini
 $RECYCLE.BIN/
 .localized
-
-*.xml
-
-sysProps.xml
-*.classpath
